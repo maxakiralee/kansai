@@ -1,0 +1,11 @@
+{
+  "name": "Trip Memories",
+  "short_name": "Trip",
+  "start_url": "/trip/calendar",
+  "display": "standalone",
+  "background_color": "#b7e082",
+  "theme_color": "#b7e082",
+  "icons": []
+}
+
+

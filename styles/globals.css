@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.safe-area-pads {
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+}
+
+html, body, #__next {
+  height: 100%;
+  background: var(--bg-green);
+}
+
+main {
+  min-height: 100%;
+}
+
+/* Cozy palette and components */
+:root {
+  --wood-900: #4b3b2b;
+  --wood-700: #6a4e36;
+  --wood-300: #b79b7a;
+  --leaf-700: #3a7f51;
+  --leaf-500: #56a86b;
+  --leaf-300: #85c89c;
+  --leaf-100: #e7f5ea;
+  --paper: #ffffff;
+  --bg-green: #b7e082; /* slightly darker, grassier green */
+  --nude: #f1e7da; /* soft nude fill */
+  --nude-weak: #f7efe6; /* lighter nude for empty cells */
+}
+
+body {
+  color: var(--wood-900);
+  background: var(--bg-green);
+}
+
+/* Flower overlay above green, behind content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  background-position: 0 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><g transform='translate(40%2036) scale(0.8)'><circle cx='0' cy='-12' r='10' fill='%23ff6b6b'/><circle cx='12' cy='0' r='10' fill='%23ff6b6b'/><circle cx='0' cy='12' r='10' fill='%23ff6b6b'/><circle cx='-12' cy='0' r='10' fill='%23ff6b6b'/><circle cx='0' cy='0' r='7' fill='%23ffd93d'/></g><g transform='translate(170%2038) scale(0.9)'><circle cx='0' cy='-12' r='10' fill='%236bb7ff'/><circle cx='12' cy='0' r='10' fill='%236bb7ff'/><circle cx='0' cy='12' r='10' fill='%236bb7ff'/><circle cx='-12' cy='0' r='10' fill='%236bb7ff'/><circle cx='0' cy='0' r='7' fill='%23ffc37a'/></g><g transform='translate(110%20160) scale(1.1)'><circle cx='0' cy='-14' r='12' fill='%23ffffff'/><circle cx='14' cy='0' r='12' fill='%23ffffff'/><circle cx='0' cy='14' r='12' fill='%23ffffff'/><circle cx='-14' cy='0' r='12' fill='%23ffffff'/><circle cx='0' cy='0' r='8' fill='%23ffd93d'/></g><g transform='translate(16%20170) scale(0.7)'><circle cx='0' cy='-12' r='10' fill='%23ff8ad4'/><circle cx='12' cy='0' r='10' fill='%23ff8ad4'/><circle cx='0' cy='12' r='10' fill='%23ff8ad4'/><circle cx='-12' cy='0' r='10' fill='%23ff8ad4'/><circle cx='0' cy='0' r='7' fill='%23ffe7a3'/></g><g transform='translate(200%20140) scale(0.6)'><circle cx='0' cy='-10' r='8' fill='%236bb7ff'/><circle cx='10' cy='0' r='8' fill='%236bb7ff'/><circle cx='0' cy='10' r='8' fill='%236bb7ff'/><circle cx='-10' cy='0' r='8' fill='%236bb7ff'/><circle cx='0' cy='0' r='6' fill='%23ffc37a'/></g></svg>");
+}
+
+/* kept for older pages but not needed when using the component */
+.content-above-overlay { position: relative; z-index: 1; }
+
+.cute-header {
+  color: var(--wood-900);
+}
+
+.cute-grid {
+  --gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--gap);
+}
+
+.cute-card {
+  background: var(--nude);
+  border: 4px solid var(--wood-700);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  padding: 12px;
+}
+
+.cute-card:active { transform: translateY(1px); }
+
+.cute-empty {
+  background: var(--nude-weak);
+  border: 1px dashed rgba(106,78,54,0.25);
+  border-radius: 14px;
+}
+
+.cute-button {
+  background: var(--leaf-500);
+  color: white;
+  border-radius: 999px;
+  padding: 12px 18px;
+  box-shadow: 0 8px 20px rgba(58,127,81,0.2);
+}
+
+.cute-button:active { transform: scale(0.99); }
+
+.memory-card {
+  background: var(--paper);
+  border: 1px solid rgba(106,78,54,0.18);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Self-hosted handwriting fonts and sticker corners per plan */
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/Caveat-Regular.woff2') format('woff2');
+  font-display: swap; font-weight: 400; font-style: normal;
+}
+@font-face {
+  font-family: 'Shadows Into Light';
+  src: url('/fonts/ShadowsIntoLight-Regular.woff2') format('woff2');
+  font-display: swap; font-weight: 400; font-style: normal;
+}
+
+.handwriting { font-family: 'Caveat', 'Shadows Into Light', system-ui, sans-serif; }
+
+.sticker-corners { position: relative; }
+.sticker-corners::before,
+.sticker-corners::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: linear-gradient(135deg, transparent 49%, #d9d3c7 50%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+}
+.sticker-corners::before { top: -2px; left: -2px; transform: rotate(0deg); }
+.sticker-corners::after  { top: -2px; right: -2px; transform: rotate(90deg); }
+.sticker-corners .corner-bot-left,
+.sticker-corners .corner-bot-right {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: linear-gradient(135deg, transparent 49%, #d9d3c7 50%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+}
+.sticker-corners .corner-bot-left  { bottom: -2px; left: -2px; transform: rotate(270deg); }
+.sticker-corners .corner-bot-right { bottom: -2px; right: -2px; transform: rotate(180deg); }
+
+/* Remove stray @apply utilities to avoid CSS parser warnings when Tailwind isn't processing here */
+
+/* Disable legacy tiled flower overlay (now using BackgroundFlowers component) */
+body::before { display: none !important; background-image: none !important; }
