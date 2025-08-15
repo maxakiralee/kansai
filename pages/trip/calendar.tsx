@@ -12,13 +12,14 @@ function toIso(date: Date) {
 
 export default function TripCalendarPage() {
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow
-    const prevOsb = (document.documentElement.style as any).overscrollBehavior
+    const prevOverflow = document.documentElement.style.overflow
+    const prevBodyOverflow = document.body.style.overflow
+    const htmlEl = document.documentElement as HTMLElement
+    htmlEl.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
-    ;(document.documentElement.style as any).overscrollBehavior = 'none'
     return () => {
-      document.body.style.overflow = prevOverflow
-      ;(document.documentElement.style as any).overscrollBehavior = prevOsb
+      htmlEl.style.overflow = prevOverflow
+      document.body.style.overflow = prevBodyOverflow
     }
   }, [])
   // Trip dates: August 11..19 (local convention)
@@ -63,7 +64,7 @@ export default function TripCalendarPage() {
       >
         Home
       </Link>
-      <div className="absolute inset-0 -z-10">
+      <div className="fixed inset-0 -z-10">
         <Image
           src={(snoopyBg as any).src || '/snoopyBackground.jpeg'}
           alt=""
