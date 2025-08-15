@@ -1,11 +1,27 @@
 {
   "name": "Trip Memories",
   "short_name": "Trip",
-  "start_url": "/trip/calendar",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#b7e082",
-  "theme_color": "#b7e082",
-  "icons": []
+  "orientation": "portrait-primary",
+  "background_color": "#e9e4da",
+  "theme_color": "#e9e4da",
+  "description": "A simple trip journal to add memories and photos.",
+  "icons": [
+    {
+      "src": "/icons/app-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
 
 

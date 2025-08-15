@@ -10,6 +10,9 @@ export default function Document() {
         <meta name="theme-color" content="#e9e4da" />
         <meta name="format-detection" content="telephone=no" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/app-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Trip" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
         <Main />

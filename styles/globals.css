@@ -136,5 +136,4 @@ body::before {
 
 /* Remove stray @apply utilities to avoid CSS parser warnings when Tailwind isn't processing here */
 
-/* Disable legacy tiled flower overlay (now using BackgroundFlowers component) */
 body::before { display: none !important; background-image: none !important; }

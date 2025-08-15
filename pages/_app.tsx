@@ -4,6 +4,7 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import BackgroundFlowers from "@/components/BackgroundFlowers";
 import localFont from 'next/font/local'
 import Head from 'next/head'
+import { useEffect } from 'react'
 
 const snoopyFont = localFont({
   src: '../snoopy_reg-webfont.otf',
@@ -13,6 +14,11 @@ const snoopyFont = localFont({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {})
+    }
+  }, [])
   return (
     <AuthProvider>
       <Head>
