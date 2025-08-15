@@ -19,7 +19,8 @@ export default function LoginPage() {
       const email = raw.includes('@') ? raw : `${raw}${suffix}`
       const { error: signErr } = await supabase.auth.signInWithPassword({ email, password })
       if (signErr) throw signErr
-      // Session cookies are set by supabase client; no app-managed cookies needed
+      // Clear outer marker; session cookies are set by auth-helpers client
+      document.cookie = 'outer_ok=; Max-Age=0; Path=/; SameSite=Lax; Secure'
       window.location.href = '/trip/calendar'
     } catch (err: any) {
       setError(err?.message || 'Invalid credentials')
@@ -32,12 +33,12 @@ export default function LoginPage() {
     <main className="safe-area-pads min-h-screen flex items-center justify-center p-6">
       <form onSubmit={onSubmit} className="w-full max-w-sm cute-card z-10">
         <h1 className="text-2xl mb-4 text-[color:var(--wood-900)] text-center">Sign in</h1>
-        <label className="block mb-2 text-[color:var(--wood-900)]">Username or Email</label>
+        <label className="block mb-2 text-[color:var(--wood-900)]">Username</label>
         <input
           className="w-full mb-3 rounded border p-3"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="yourname or yourname@gmail.com"
+          placeholder="yourname"
           autoCapitalize="off"
         />
         <label className="block mb-2 text-[color:var(--wood-900)]">Password</label>
