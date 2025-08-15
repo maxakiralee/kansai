@@ -70,7 +70,29 @@ export default function TripDayPage() {
           {items.map((e) => (
             <div key={e.id} className="flex items-center justify-center">
               <div style={{ width: baseW }}>
-                <MemoryCard id={e.id} body={e.body} imageUrl={e.imageUrl} />
+                <MemoryCard
+                  id={e.id}
+                  body={e.body}
+                  imageUrl={e.imageUrl}
+                  actions={
+                    <button
+                      onClick={async () => {
+                        try {
+                          const { error: de } = await supabase.from('events').delete().eq('id', e.id)
+                          if (de) throw de
+                          setItems((prev) => prev.filter((it) => it.id !== e.id))
+                        } catch (err) {
+                          // eslint-disable-next-line no-alert
+                          alert('Failed to delete. Please try again.')
+                        }
+                      }}
+                      className="text-xs px-2 py-1 rounded shadow"
+                      style={{ background: 'var(--nude)', border: '2px solid var(--wood-700)', color: 'var(--wood-900)' }}
+                    >
+                      Delete
+                    </button>
+                  }
+                />
               </div>
             </div>
           ))}
@@ -114,8 +136,8 @@ export default function TripDayPage() {
     <main className="safe-area-pads p-6 pt-16 min-h-screen content-above-overlay relative flex flex-col">
       <Link
         href="/trip/calendar"
-        className="absolute top-4 right-4 z-10 rounded-full px-5 py-2 text-lg shadow-sm"
-        style={{ background: 'var(--nude)', border: '4px solid var(--wood-700)', color: 'var(--wood-900)' }}
+        className="absolute right-4 z-10 rounded-full px-5 py-2 text-lg shadow-sm"
+        style={{ top: 'calc(env(safe-area-inset-top) + 12px)', background: 'var(--nude)', border: '4px solid var(--wood-700)', color: 'var(--wood-900)' }}
       >
         Home
       </Link>
@@ -124,7 +146,29 @@ export default function TripDayPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {items.map((e) => (
             <div key={e.id} className="flex items-start justify-center">
-              <MemoryCard id={e.id} body={e.body} imageUrl={e.imageUrl} />
+              <MemoryCard
+                id={e.id}
+                body={e.body}
+                imageUrl={e.imageUrl}
+                actions={
+                  <button
+                    onClick={async () => {
+                      try {
+                        const { error: de } = await supabase.from('events').delete().eq('id', e.id)
+                        if (de) throw de
+                        setItems((prev) => prev.filter((it) => it.id !== e.id))
+                      } catch (err) {
+                        // eslint-disable-next-line no-alert
+                        alert('Failed to delete. Please try again.')
+                      }
+                    }}
+                    className="text-xs px-2 py-1 rounded shadow"
+                    style={{ background: 'var(--nude)', border: '2px solid var(--wood-700)', color: 'var(--wood-900)' }}
+                  >
+                    Delete
+                  </button>
+                }
+              />
             </div>
           ))}
         </div>

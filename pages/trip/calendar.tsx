@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 // Import the file directly so it works even if it's not in /public
 // Next will emit a URL we can use in CSS
@@ -10,9 +11,19 @@ function toIso(date: Date) {
 }
 
 export default function TripCalendarPage() {
-  // Trip always starts on March 11 (local convention)
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow
+    const prevOsb = (document.documentElement.style as any).overscrollBehavior
+    document.body.style.overflow = 'hidden'
+    ;(document.documentElement.style as any).overscrollBehavior = 'none'
+    return () => {
+      document.body.style.overflow = prevOverflow
+      ;(document.documentElement.style as any).overscrollBehavior = prevOsb
+    }
+  }, [])
+  // Trip dates: August 11..19 (local convention)
   const now = new Date()
-  const baseDate = new Date(Date.UTC(now.getUTCFullYear(), 2, 11)) // March is month index 2
+  const baseDate = new Date(Date.UTC(now.getUTCFullYear(), 7, 11)) // August is month index 7
   const year = baseDate.getUTCFullYear()
   const month = baseDate.getUTCMonth() // 0-based
 
@@ -37,13 +48,14 @@ export default function TripCalendarPage() {
 
   return (
     <main
-      className="safe-area-pads min-h-screen flex flex-col items-center justify-start content-above-overlay relative overflow-hidden"
-      style={{ paddingTop: 'calc(env(safe-area-inset-top) + 25vh)' }}
+      className="safe-area-pads h-screen flex flex-col items-center justify-start content-above-overlay relative overflow-hidden"
+      style={{ paddingTop: 'calc(env(safe-area-inset-top) + 25vh)', height: '100svh', overscrollBehavior: 'none' as any }}
     >
       <Link
         href="/trip/calendar"
-        className="absolute top-4 right-4 z-10 rounded-full px-6 py-2 text-xl shadow-sm"
+        className="absolute right-4 z-10 rounded-full px-6 py-2 text-xl shadow-sm"
         style={{
+          top: 'calc(env(safe-area-inset-top) + 12px)',
           background: 'var(--nude)',
           border: '4px solid var(--wood-700)',
           color: 'var(--wood-900)'
